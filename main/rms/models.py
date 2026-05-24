@@ -40,6 +40,10 @@ class Order(models.Model):
         default='pending'
     )
     
+    def __str__(self):
+        return str(self.pk)
+
+    
 class OrderedFood(models.Model):
     food = models.ForeignKey(Food, on_delete=models.PROTECT)
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
