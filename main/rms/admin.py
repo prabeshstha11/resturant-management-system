@@ -4,28 +4,32 @@ from .models import *
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    search_fields = ['name']
+    list_display = ["name"]
+    search_fields = ["name"]
     # list_filter = ['name']
 
+
 class FoodAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'category']
-    search_fields = ['name']
-    list_filter = ['price', 'category']
-    
+    list_display = ["name", "price", "category"]
+    search_fields = ["name"]
+    list_filter = ["price", "category"]
+
+
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'total_price']
-    search_fields= ['user', 'total_price']
-    list_filter = ['status', 'user']
-    
+    list_display = ["user", "total_price"]
+    search_fields = ["user", "total_price"]
+    list_filter = ["status", "user"]
+
+
 class TableAdmin(admin.ModelAdmin):
-    list_display = ['number', 'capacity', 'is_available']
-    search_fields = ['capacity']
-    list_filter = ['capacity']
-    
+    list_display = ["number", "capacity", "is_available"]
+    search_fields = ["capacity"]
+    list_filter = ["capacity"]
+
+
 class OrderedFoodAdmin(admin.ModelAdmin):
-    list_display = ['order', 'food']
-    list_filter = ['order', 'food']
+    list_display = ["order", "food"]
+    list_filter = ["order", "food"]
 
 
 admin.site.register(Category, CategoryAdmin)
