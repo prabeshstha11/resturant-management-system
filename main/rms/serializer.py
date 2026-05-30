@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category
+from .models import Category, Table
 
 
 class CategorySerializer(serializers.Serializer):
@@ -14,3 +14,18 @@ class CategorySerializer(serializers.Serializer):
         instance.name = validated_data.get("name", instance.name)
         instance.save()
         return instance
+
+class TableSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    number = serializers.CharField()
+    capacity = serializers.IntegerField()
+    is_available = serializers.BooleanField()
+    
+    
+    def create(self, validated_data):
+        table = Table.objects.create(
+            number=validated_data.get("number"),
+            capacity=validated_data.get("capacity"),
+            is_available=validated_data.get("is_available")
+        )
+        return table
