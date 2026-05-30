@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Table
+from .models import Category, Table, Food
 
 
 class CategorySerializer(serializers.Serializer):
@@ -29,3 +29,16 @@ class TableSerializer(serializers.Serializer):
             is_available=validated_data.get("is_available")
         )
         return table
+    
+class FoodSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(max_length=100)
+    description = serializers.CharField()
+    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    
+    ## mapping category id to category object
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())   
+    
+    def create(self, validated_data):
+        food = Food.objects.create(**validated_data)
+        return food

@@ -1,8 +1,39 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Category, OrderedFood, Table
-from .serializer import CategorySerializer, TableSerializer
+from .models import Category, OrderedFood, Table, Food
+from .serializer import CategorySerializer, TableSerializer, FoodSerializer
+
+
+## generic api and mixins
+from rest_framework import generics, mixins
+from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView
+# class FoodGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+#     queryset = Food.objects.all()
+#     serializer_class = FoodSerializer
+    
+#     def get(self, request):
+#         return self.list(request)
+    
+#     def post(self, request):
+#         return self.create(request)
+
+# class FoodDetailGenericAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+#     queryset = Food.objects.all()
+#     serializer_class = FoodSerializer
+#     lookup_field = "id"
+    
+#     def get(self, request, id):
+#         return self.retrieve(request, id)
+
+class FoodGenericAPIView(ListCreateAPIView):
+    queryset = Food.objects.all()
+    serializer_class = FoodSerializer
+    
+class FoodDetailGenericAPIView(RetrieveDestroyAPIView):
+    queryset = Food.objects.all()
+    serializer_class = FoodSerializer 
+    lookup_field = "id"
 
 
 ## class based view
